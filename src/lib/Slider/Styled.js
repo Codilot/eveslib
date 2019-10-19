@@ -12,6 +12,7 @@ const Styled = styled.div`
     width: ${props => props.slideWidth * props.numberOfSlides}px;
     transform: translateX(${props => props.slideOffset}px);
     transition: transform 0.5s ease-in-out 0.1s;
+    will-change: transform;
   }
 `;
 
