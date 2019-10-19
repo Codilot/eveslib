@@ -1,20 +1,35 @@
 import React from "react";
-import data from "./data";
 import Styled from "./Styled";
 import Slide from "../Slide";
+import data from "./data";
 
-const Slider = ({slideWidth = 300, slideHeight = 400, activeSlideIndex }) => (
-  <Styled slideWidth={slideWidth} slideHeight={slideHeight } NumberOfSlides={data.length}>
+const Slider = ({
+  slideWidth,
+  slideHeight,
+  activeSlideIndex,
+  classes,
+  handleSlideClick,
+  slideOffset
+}) => (
+  <Styled
+    slideWidth={slideWidth}
+    slideHeight={slideHeight}
+    numberOfSlides={data.length}
+    slideOffset={slideOffset}
+  >
     {activeSlideIndex}
-    
-    <div className="slider-container">
+    {classes}
+    {slideOffset}
+    <div className={`slider-container ${classes}`}>
       {data.map(item => (
-        <Slide 
-        key={item.index} 
-        url={item.src} 
-        title={item.title} 
-        slideWidth={slideWidth} 
-        slideHeight={slideHeight}
+        <Slide
+          key={item.index}
+          url={item.src}
+          title={item.title}
+          slideWidth={slideWidth}
+          slideHeight={slideHeight}
+          isHighlighted={item.index === activeSlideIndex}
+          onClick={()=> handleSlideClick(item.index)}
         ></Slide>
       ))}
     </div>
