@@ -7,7 +7,9 @@ const Slide = ({
   slideHeight,
   slideWidth,
   isHighlighted,
-  onClick
+  onClick,
+  onMouseDown,
+  onMouseUp
 }) => (
   <Styled
     imgUrl={url}

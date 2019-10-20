@@ -9,18 +9,32 @@ const Slider = ({
   activeSlideIndex,
   classes,
   handleSlideClick,
-  slideOffset
+  slideOffset,
+  handleMouseUp,
+  handleMouseDown,
+  startPosition,
+  endPosition
 }) => (
   <Styled
     slideWidth={slideWidth}
     slideHeight={slideHeight}
     numberOfSlides={data.length}
     slideOffset={slideOffset}
+
   >
-    {activeSlideIndex}
-    {classes}
+    index:{activeSlideIndex}
+    classes: {classes}
+    offset:
     {slideOffset}
-    <div className={`slider-container ${classes}`}>
+    start:
+    {startPosition}
+    end:
+    {endPosition}
+    <div
+      onMouseUp={handleMouseUp}
+      onMouseDown={handleMouseDown}
+      className={`slider-container ${classes}`}
+    >
       {data.map(item => (
         <Slide
           key={item.index}
@@ -29,7 +43,7 @@ const Slider = ({
           slideWidth={slideWidth}
           slideHeight={slideHeight}
           isHighlighted={item.index === activeSlideIndex}
-          onClick={()=> handleSlideClick(item.index)}
+          onClick={() => handleSlideClick(item.index)}
         ></Slide>
       ))}
     </div>

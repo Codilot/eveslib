@@ -5,6 +5,7 @@ const Styled = styled.div`
     width: ${props => props.slideWidth}px;
     height: ${props => props.slideHeight}px;
     margin: auto;
+    user-select: none;
     .image {
     opacity:0.2;
     width: 250px;
@@ -12,7 +13,7 @@ const Styled = styled.div`
     background: url(${props => props.imgUrl});
     background-size: cover;
     border-radius: 3px;
-    transition: opacity 0.5s ease-in-out 0.1s;
+    transition: opacity 0.5s ease-in-out 0.1s;  
     }
     .image.highlighted {
       opacity:1;
