@@ -43,7 +43,6 @@ const Slider = ({
           slideWidth={slideWidth}
           slideHeight={slideHeight}
           isHighlighted={item.index === activeSlideIndex}
-          onClick={() => handleSlideClick(item.index)}
         ></Slide>
       ))}
     </div>

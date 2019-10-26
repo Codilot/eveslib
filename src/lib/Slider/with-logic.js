@@ -1,90 +1,25 @@
 import { withStateHandlers, compose } from "recompose";
+import data from "./data";
 
 export default compose(
   withStateHandlers(
     ({
+      numberOfSlides = data.length,
       activeSlideIndex = 0,
       classes = "",
       sliderWidth,
       slideWidth = Math.floor(sliderWidth / 3),
       slideOffset = slideWidth / 2,
       endPosition,
-      startPosition
+      startPosition,
     }) => ({
       activeSlideIndex,
       classes,
       slideOffset,
       slideWidth,
-      endPosition,
-      startPosition
-    }),
-    {
-      handleSlideClick: ({
-        activeSlideIndex,
-        slideOffset,
-        slideWidth
-      }) => index => {
-        if (activeSlideIndex < index) {
-          return {
-            activeSlideIndex: activeSlideIndex + 1,
-            classes: "slide-forward",
-            slideOffset: slideOffset - slideWidth
-          };
-        }
-        if (activeSlideIndex > index) {
-          return {
-            activeSlideIndex: activeSlideIndex - 1,
-            classes: "slide-backward",
-            slideOffset: slideOffset + slideWidth
-          };
-        }
-      },
-      handleMouseDown: () => event => ({
-        startPosition: event.clientX
-      }),
-      handleMouseUp: ({
-        activeSlideIndex,
-        startPosition,
-        slideOffset,
-        slideWidth
-      }) => event => {
-        if (event.clientX > startPosition) {
-          console.log("forward");
-          return {
-            endPosition: event.clientX,
-            activeSlideIndex: activeSlideIndex + 1,
-            classes: "slide-forward",
-            slideOffset: slideOffset - slideWidth
-          };
-        }
-        if (event.clientX < startPosition) {
-          console.log("back");
-          return {
-            endPosition: event.clientX,
-            activeSlideIndex: activeSlideIndex - 1,
-            classes: "slide-backward",
-            slideOffset: slideOffset + slideWidth
-          };
-        }
-        return { endPosition: event.clientX };
-      }
-    }
-  ),
-  withStateHandlers(
-    ({
-      activeSlideIndex,
-      classes = "",
-      slideOffset,
       endPosition,
       startPosition,
-      slideWidth,
-    }) => ({
-      activeSlideIndex,
-      classes,
-      slideOffset,
-      slideWidth,
-      endPosition,
-      startPosition
+      numberOfSlides,
     }),
     {
       handleMouseDown: () => event => ({
@@ -94,10 +29,12 @@ export default compose(
         activeSlideIndex,
         startPosition,
         slideOffset,
-        slideWidth
+        slideWidth,
+        numberOfSlides
       }) => event => {
-        if (event.clientX > startPosition) {
-          console.log("forward");
+        if (activeSlideIndex < (numberOfSlides -1) && event.clientX < startPosition) {
+          console.log("forward", numberOfSlides);
+          event.preventDefault();
           return {
             endPosition: event.clientX,
             activeSlideIndex: activeSlideIndex + 1,
@@ -105,8 +42,9 @@ export default compose(
             slideOffset: slideOffset - slideWidth
           };
         }
-        if (event.clientX < startPosition) {
+        if (activeSlideIndex > 0 && event.clientX > startPosition) {
           console.log("back");
+          event.preventDefault();
           return {
             endPosition: event.clientX,
             activeSlideIndex: activeSlideIndex - 1,
